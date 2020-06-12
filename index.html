@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="title"></title>
+    <link rel="stylesheet" href="/css/materialize.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#c70101" />
+</head>
+
+<body>
+    <div class="container s-w-100">
+        <!-- ini header -->
+        <header>
+            <div class="navbar-fixed ">
+                <nav class="w-70 s-w-100 m-w-100 ">
+                    <div class=" nav-wrapper color-brand xl-pl-2">
+                        <a href="/" class="brand-logo"><img src="images/ManchesterUnitedFC.png"
+                         class="img-logo" alt=""></a>
+                        <a href="#" data-target="slide-out" class="sidenav-trigger">&#9776;</a>
+                        <ul class="navigasi hide-on-med-and-down">
+                            <li class="active"><a href="#home" class="subNav"><b>PLAYER</b></a></li>
+                            <li><a href="#match" class="subNav"><b>MATCH</b></a></li>
+                            <li><a href="#standing" class="subNav"><b>STANDING</b></a></li>
+                            <li><a href="#vitamin" class="subNav"><b>SAVED</b></a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+
+            <!-- ini sidebar -->
+            <ul id="slide-out" class="sidenav">
+                <li><a class="waves-effect subNav" href="#home">Home</a></li>
+                <li><a class="waves-effect subNav" href="#karbohidrat">Karbohidrat</a></li>
+                <li><a class="waves-effect subNav" href="#match">MATCH</a></li>
+                <li><a class="waves-effect subNav" href="#standing">STANDING</a></li>
+                <li><a class="waves-effect subNav" href="#vitamin">Vitamin</a></li>
+            </ul>
+            <!-- batas sidebar -->
+        </header>
+        <!-- batas header -->
+
+        <!-- ini Content -->
+        <main class="">
+            <article class="text-justify fs-content">
+                <div class="card-panel xl-mt-0 xl-mt-1 content">
+                    <div class="row s-mb-0 body-content">
+
+                    </div>
+                </div>
+            </article>
+        </main>
+        <!-- Batas Content -->
+
+        <!-- ini footer -->
+        <footer class=" color-brand white-text fs-footer s-text-center m-text-center">
+            <div class="row xl-m-0 xl-p-2">
+                <div class="right col s12 m12 xl4  s-mb-1 s-mt-1 text-right s-text-center m-text-center">
+                   Manchester United FC 2020
+                </div>
+        </footer>
+        <!-- Batas Footer -->
+    </div>
+
+    <!-- Ini File JavaScritpt -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/materialize.min.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/idb.js"></script>
+    <script src="js/db.js"></script>
+
+    <script>
+        // REGISTER SERVICE WORKER
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", function () {
+                navigator.serviceWorker
+                    .register("/service-worker.js")
+                    .then(function () {
+                        console.log("Pendaftaran ServiceWorker berhasil");
+                    })
+                    .catch(function () {
+                        console.log("Pendaftaran ServiceWorker gagal");
+                    });
+            });
+        } else {
+            console.log("ServiceWorker belum didukung browser ini.");
+        }
+    </script>
+
+</body>
+</html>

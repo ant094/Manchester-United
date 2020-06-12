@@ -1,0 +1,195 @@
+/* style Logo 60px */
+
+ul.navigasi {
+    padding-left: 60px;
+}
+
+p {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+a{
+    color: black;
+}
+
+.center-align.vs-match {
+    padding-top: 40px;
+}
+.center-align.vs-matchId {
+    padding-top: 40px;
+}
+
+.img-logo {
+    height: 65px;
+}
+
+.img-match {
+    height: 100px;
+}
+.img-matchId {
+    height: 150px;
+}
+.img-standing{
+        height: 30px;
+}
+
+.xl-m-0 {
+    margin: 0px;
+}
+.xl-mt-0 {
+    margin: 0px;
+}
+.xl-mb-1 {
+    margin: 8px;
+}
+
+.xl-p-2 {
+    padding: 16px;
+}
+.xl-pl-2 {
+    padding-left: 16px;
+}
+
+.w-100{
+    width: 100%;
+}
+.w-70{
+    width: 70%;
+}
+
+.fs-content {
+    font-size: 17px;
+    color: black;
+}
+.fs-footer {
+    font-size: 15px;
+}
+
+.text-justify{
+    text-align: justify;
+}
+.text-right{
+    text-align: right;
+}
+ .text-center {
+     text-align: center;
+ }
+
+body{
+    overflow-x: hidden;
+    background: #fafafa;
+}
+
+
+.img-sidebar{
+    height: 200px;
+}
+
+.color-brand{
+    background-color: #c70101;
+}
+.content {
+    padding:15px 60px 15px 60px;
+}
+
+.pb-3 {
+    padding-bottom: 12px;
+}
+
+.fs-date {
+    font-size: 14px;
+}
+.line-matchId{
+    padding-top:10px;
+    margin-top: 10px;
+    border-top: 1px solid #ddd;
+}
+@media (min-width: 1000px) and (max-width: 1200px) {
+    .img-match{
+        height: 80px;
+    }
+    .fs-date {
+        font-size: 10px;
+    }
+    .center-align.vs-match {
+        padding-top: 30px;
+    }
+   
+}
+
+@media (min-width: 600px) and (max-width: 1000px) {
+
+    .content {
+        padding: 10px 30px 10px 30px;
+    }
+
+    .container {
+        width: 100%;
+    }
+
+    .m-text-center {
+        text-align: center;
+    }
+
+    .s-mt-1 {
+        margin-top: 6px;
+    }
+
+    .s-mb-1 {
+        margin-bottom: 6px;
+    }
+    .m-w-100 {
+        width: 100%;
+    }
+
+    .pb-3 {
+        padding-bottom: 9px;
+    }
+}
+
+@media (max-width: 600px) {
+    .img-logo {
+        height: 60px;
+    }
+    .img-matchId{
+        height: 90px;
+    }
+   .fs-content {
+       font-size: 14px
+   }
+    .content {
+        padding: 0px 10px 0px 10px;
+    }
+    .container {
+     width: 100%;
+    }
+
+    .s-text-center {
+        text-align: center;
+    }
+    
+    .s-mt-1 {
+        margin-top: 4px;
+    }
+    .s-mb-1 {
+        margin-bottom: 4px;
+    }
+    .s-mb-0 {
+        margin-bottom: 0px;
+    }
+    .s-mt-0 {
+        margin-bottom: 0px;
+    }
+    .s-w-100 {
+        width: 100%;
+    }
+    .pb-3 {
+        padding-bottom: 6px;
+    }
+
+    .center-align.vs-matchId {
+        padding-top: 20px;
+    }
+
+}
