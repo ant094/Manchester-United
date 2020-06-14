@@ -1,5 +1,12 @@
 /* style Logo 60px */
-
+.fixed-action-btn {
+    position: fixed;
+    right: 200px;
+    bottom: 33px;
+    padding-top: 15px;
+    margin-bottom: 0;
+    z-index: 997;
+}
 ul.navigasi {
     padding-left: 60px;
 }
@@ -106,6 +113,14 @@ body{
     border-top: 1px solid #ddd;
 }
 @media (min-width: 1000px) and (max-width: 1200px) {
+    .fixed-action-btn {
+        position: fixed;
+        right: 160px;
+        bottom: 33px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 997;
+    }
     .img-match{
         height: 80px;
     }
@@ -119,7 +134,14 @@ body{
 }
 
 @media (min-width: 600px) and (max-width: 1000px) {
-
+.fixed-action-btn {
+    position: fixed;
+    right: 20px;
+    bottom: 33px;
+    padding-top: 15px;
+    margin-bottom: 0;
+    z-index: 997;
+}
     .content {
         padding: 10px 30px 10px 30px;
     }
@@ -149,6 +171,14 @@ body{
 }
 
 @media (max-width: 600px) {
+    .fixed-action-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 33px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 997;
+    }
     .img-logo {
         height: 60px;
     }

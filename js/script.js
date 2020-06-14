@@ -10,9 +10,11 @@ $('.subNav').click(function () {
 
 //digunakan untuk menampilkan content
 var page = window.location.hash;
+
 if (page == "") {
     page = '#home';
 } 
+console.log(page);
 loadContent(page);
 
 //Function untuk menampilkan Kontent dengan ajax 
@@ -31,9 +33,7 @@ function loadContent(url) {
         </div>
     </article>`;
 
-let id="264634";
 if (url.substr(1,7) == "matchId") {
-    id  = url.substr(9); 
     url = "#matchId";
 }
 
@@ -41,34 +41,43 @@ const link = "pages/" + url.substr(1) + ".html";
 $('#title').text(page.substr(1));
 $.get(link, function (dataSearch) {
     $(".body-content").html(dataSearch);
-      
-          
+
+     let url    = window.location.hash.substr(1);
+     let id     = "";
+
+if (url == "") {
+    url = 'home';
+}
+
+ if (url.substr(0, 7) == "matchId") {
+     id = url.substr(8);
+     url = "matchId";
+ }
+ 
+     switch (url){
+              case "home":
+                    getPlayers();
+                  break;
+              case "match":
+                  console.log(document.getElementById('save'));
+                  getMatch();
+                  break;
+              case "matchId":
+                  getStanding();
+                  
+                  break;
+              case "standing":
+                  getStanding();
+                  break;
+              default:
+                  console.log("Error");
+          }
        
     }).fail(
         function(){
         $(".body-content").html(error);
         }
     );
-
-switch (url.substr(1)) {
-    case "home":
-        getTeam();
-        break;
-    case "match":
-        getMatch();
-        
-        break;
-    case "matchId":
-        getMatchId(id);
-        getStanding();
-        break;
-    case "standing":
-        getStanding();
-        break;
-    default:
-        console.log("Error");
-        
-}
       
 }
 
