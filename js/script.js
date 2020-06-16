@@ -12,13 +12,13 @@ $('.subNav').click(function () {
 function checkUrl(url) {
     let urlId = '';
     if (url == "") {
-        url = 'home';
+        url     = 'home';
     } else if (url.substr(0, 7) === "matchId") {
-        urlId = url.substr(8);
-        url = "matchId";
+        urlId   = url.substr(8);
+        url     = "matchId";
     } else if (url.substr(0, 7) === "savedId") {
-        urlId = url.substr(8);
-        url = "savedId";
+        urlId   = url.substr(8);
+        url     = "savedId";
     }
 
     return resultUrl = [url, urlId];
