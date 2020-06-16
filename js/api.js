@@ -50,32 +50,26 @@ function getPlayers(){
 }
 
 function getStanding() {
-   if ("caches" in window) {
-       caches.match(baseUrl + "/v2/competitions/2021/standings").then(function (response) {
-           if (response) {
-               response.json().then(function (data) {
-                   document.getElementById("standingsTabel").innerHTML = standing(data);
-               });
-           }
-       });
-   }
-  fetch(baseUrl + "/v2/competitions/2021/standings", {
-          headers: {
-              "X-Auth-Token": "df4db72cbc114ae9a1edf7e19f7315b1"
-          }
-      })
-      .then(statusResponse)
-      .then(json)
-      .then(function (data) {
-          document.getElementById("standingsTabel").innerHTML = standing(data);
-      }).catch(error);
-
-        let save = document.getElementById('save');
-
-        function saveContent() {
-            console.log("click Save Masuk");
+    return new Promise((resolve,reject)=>{
+        if ("caches" in window) {
+            caches.match(baseUrl + "/v2/competitions/2021/standings").then(function (response) {
+                if (response) {
+                        resolve(response.json());
+                }
+            });
         }
-        save.addEventListener('click', saveContent);
+        fetch(baseUrl + "/v2/competitions/2021/standings", {
+                headers: {
+                    "X-Auth-Token": "df4db72cbc114ae9a1edf7e19f7315b1"
+                }
+            })
+            .then(statusResponse)
+            .then(json)
+            .then(data => resolve(data)).catch(error=>reject(error));
+    });
+   
+
+    
         
 }
 
@@ -84,7 +78,7 @@ function getMatch() {
         caches.match(baseUrl + "/v2/teams/66/matches?status=SCHEDULED").then(function (response) {
             if (response) {
                 response.json().then(function (data) {
-                    document.getElementById("matchTabel").innerHTML = match(data);
+                    document.getElementById("matchTabel").innerHTML = templateMatch(data);
  document.querySelectorAll("div .match").forEach(function (elm) {
          elm.addEventListener("click", function () {
              let page = elm.getAttribute("href");
@@ -104,9 +98,7 @@ function getMatch() {
         .then(statusResponse)
         .then(json)
         .then(function (data) {
-
-            
-             document.getElementById("matchTabel").innerHTML = match(data);
+             document.getElementById("matchTabel").innerHTML = templateMatch(data);
   document.querySelectorAll("div .match").forEach(function (elm) {
           elm.addEventListener("click", function () {
               let page = elm.getAttribute("href");
@@ -118,25 +110,24 @@ function getMatch() {
 }
 
 function getMatchId(id) {
-    
- if ("caches" in window) {
-     caches.match(baseUrl + "/v2/matches/" + id).then(function (response) {
-         if (response) {
-             response.json().then(function (data) {
-          document.getElementById("matchTabelId").innerHTML = matchId(data);
-             });
-         }
-     });
- }
+ return new Promise((resolve,reject)=>{
+if ("caches" in window) {
+    caches.match(baseUrl + "/v2/matches/" + id).then(function (response) {
+        if (response) {
+           resolve(response.json());
+        }
+    });
+}
 
-    fetch(baseUrl + "/v2/matches/"+id, {
-            headers: {
-                "X-Auth-Token": "df4db72cbc114ae9a1edf7e19f7315b1"
-            }
-        })
-        .then(statusResponse)
-        .then(json)
-        .then(function (data) {
-            document.getElementById("matchTabelId").innerHTML = matchId(data);
-        });
+fetch(baseUrl + "/v2/matches/" + id, {
+        headers: {
+            "X-Auth-Token": "df4db72cbc114ae9a1edf7e19f7315b1"
+        }
+    })
+    .then(statusResponse)
+    .then(json)
+    .then(data => resolve(data))
+    .catch(error => reject(error));
+ });   
+
 }

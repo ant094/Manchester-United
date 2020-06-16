@@ -23,20 +23,14 @@ var urlsToCache = [
     "/images/WatfordFC.png",
     "/images/WestHamUnitedFC.png",
     "/images/WolverhamptonWanderersFC.png",
-    "/images/logo/icon.png",
-    "/images/logo/android-icon-192x192-dunplab-manifest-2820.png",
-    "/images/logo/apple-icon-180x180-dunplab-manifest-2820.png",
-    "/images/logo/apple-icon-152x152-dunplab-manifest-2820.png",
-    "/images/logo/apple-icon-144x144-dunplab-manifest-2820.png",
-    "/images/logo/apple-icon-120x120-dunplab-manifest-2820.png",
-    "/images/logo/apple-icon-114x114-dunplab-manifest-2820.png",
-    "/images/logo/favicon-96x96-dunplab-manifest-2820.png",
-    "/images/logo/apple-icon-76x76-dunplab-manifest-2820.png",
-    "/images/logo/apple-icon-72x72-dunplab-manifest-2820.png",
-    "/images/logo/apple-icon-60x60-dunplab-manifest-2820.png",
-    "/images/logo/apple-icon-57x57-dunplab-manifest-2820.png",
-    "/images/logo/favicon-32x32-dunplab-manifest-2820.png",
-    "/images/logo/favicon-16x16-dunplab-manifest-2820.png",
+    "images/icons/icon-72x72.png",
+    "images/icons/icon-96x96.png",
+    "images/icons/icon-128x128.png",
+    "images/icons/icon-144x144.png",
+    "images/icons/icon-152x152.png",
+    "images/icons/icon-192x192.png",
+    "images/icons/icon-384x384.png",
+    "images/icons/icon-512x512.png",
     '/pages/home.html',
     '/pages/match.html',
     '/pages/matchId.html',
@@ -98,3 +92,18 @@ self.addEventListener("activate", function (event) {
 
 
 
+self.addEventListener('push', function (event) {
+    var body;
+    if (event.data) {
+        body = event.data.text();
+    } else {
+        body = 'Push message no payload';
+    }
+    var options = {
+        body: 'Current Standings',
+        image: '/images/premier-league.jpg',
+    };
+    event.waitUntil(
+        self.registration.showNotification('Push Notification', options)
+    );
+});
