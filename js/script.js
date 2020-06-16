@@ -2,34 +2,32 @@
 $('.sidenav').sidenav();
 
 // digunakan untuk menanganni click navigasi
+let page = '';
 $('.subNav').click(function () {
     page = $(this).attr('href');
-    loadContent(page);
+    loadContent(page.substr(1));
     $('.sidenav').sidenav('close');
 });
-
-//digunakan untuk menampilkan content
-var page = window.location.hash;
-
-if (page == "") {
-    page = '#home';
-} 
-loadContent(page);
 
 function checkUrl(url) {
     let urlId = '';
     if (url == "") {
-        url     = 'home';
+        url = 'home';
     } else if (url.substr(0, 7) === "matchId") {
-        urlId   = url.substr(8);
-        url     = "matchId";
-    } else if (url.substr(0, 7) ==="savedId") {
-        urlId  = url.substr(8);
-        url     = "savedId";
+        urlId = url.substr(8);
+        url = "matchId";
+    } else if (url.substr(0, 7) === "savedId") {
+        urlId = url.substr(8);
+        url = "savedId";
     }
 
     return resultUrl = [url, urlId];
 }
+
+//digunakan untuk menampilkan content
+page = checkUrl(window.location.hash.substr(1));
+
+loadContent(page[0]);
 
 //Function untuk menampilkan Kontent dengan ajax 
 function loadContent(url) {
@@ -38,7 +36,7 @@ function loadContent(url) {
  url = checkUrl(url);
 
 const link = "pages/" + url[0]+ ".html";
-$('#title').text(page.substr(1));
+$('#title').text(url[0]);
 $.get(link, function (dataSearch) {
     $(".body-content").html(dataSearch);
  
@@ -71,6 +69,8 @@ $.get(link, function (dataSearch) {
                         saveStandingDB(data, titleMatch);
                     });
                 }
+                console.log(url[0]);
+                console.log(url[1]);
                 matchId(url[1]);
                   break;
 
