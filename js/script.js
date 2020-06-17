@@ -1,3 +1,6 @@
+
+
+$('#logo').attr('src', 'images/ManchesterUnitedFC.png');
 // digunakan untuk menampilkan sideNav saat di Klik
 $('.sidenav').sidenav();
 
@@ -5,104 +8,101 @@ $('.sidenav').sidenav();
 let page = '';
 $('.subNav').click(function () {
     page = $(this).attr('href');
-    loadContent(page.substr(1));
+    loadContent(page);
     $('.sidenav').sidenav('close');
 });
 
-function checkUrl(url) {
-    let urlId = '';
-    if (url == "") {
-        url     = 'home';
-    } else if (url.substr(0, 7) === "matchId") {
-        urlId   = url.substr(8);
-        url     = "matchId";
-    } else if (url.substr(0, 7) === "savedId") {
-        urlId   = url.substr(8);
-        url     = "savedId";
-    }
-
-    return resultUrl = [url, urlId];
-}
-
 //digunakan untuk menampilkan content
-page = checkUrl(window.location.hash.substr(1));
-
-loadContent(page[0]);
+page = getUrl(window.location.hash);
+loadContent(page.url);
 
 //Function untuk menampilkan Kontent dengan ajax 
 function loadContent(url) {
 
 // Variabel Untuk tangani Error
- url = checkUrl(url);
+ url = getUrl(url.substr(1));
 
-const link = "pages/" + url[0]+ ".html";
-$('#title').text(url[0]);
+const link = "pages/" + url.url+ ".html";
+$('#title').text(url.url);
 $.get(link, function (dataSearch) {
     $(".body-content").html(dataSearch);
  
-     switch (url[0]){
+     switch (url.url){
             case "home":
-                   getPlayers();
-                  break;
-
+                   navigasiActive('PLAYER');
+                   async function home() {
+                       const dataPlayer = await getPlayers();
+                       document.getElementById("playerTabel").innerHTML = viewPlayer(dataPlayer);
+                   }
+                   home();
+                break;
              case "match":
-                  getMatch();
-                  break;
-
+                    navigasiActive('MATCH');
+                    async function match() {
+                        const dataMatch = await getMatch();
+                        document.getElementById("matchTabel").innerHTML = viewMatch(dataMatch);
+                        document.querySelectorAll("div .match").forEach(function (elm) {
+                            elm.addEventListener("click", function () {
+                                let page = elm.getAttribute("href");
+                                loadContent(page);
+                            });
+                        });
+                    }
+                    match();
+                break;
             case "matchId":
                async function matchId(id) {
                    const dataMatchId  = await getMatchId(id);
                    const dataStanding = await getStanding();
                    
-                   document.getElementById("matchTabelId").innerHTML    = templateMatchId(dataMatchId);
-                   document.getElementById("standingsTabel").innerHTML  = templateStanding(dataStanding);
+                   document.getElementById("matchTabelId").innerHTML    = viewMatchId(dataMatchId);
+                   document.getElementById("standingsTabel").innerHTML  = viewStanding(dataStanding);
 
                    const save         = document.getElementById('save');
                    save.addEventListener('click', async function() {
                         const data    = {
-                            key         : "matchId-" + url[1],
+                            key         : "matchId-" + url.id,
                             head2head   : dataMatchId.head2head,
                             match       : dataMatchId.match,
                             standings   : dataStanding.standings
                         }
                         const titleMatch = document.getElementById('titleMatch').innerHTML;
-                        saveStandingDB(data, titleMatch);
+                        saveInDB(data, titleMatch);
                     });
                 }
-                console.log(url[0]);
-                console.log(url[1]);
-                matchId(url[1]);
-                  break;
 
+                    navigasiActive('MATCH')
+                    matchId(url.id);
+                break;
             case "standing":
                  async function standing() {
                     const dataStanding = await getStanding();
-                    document.getElementById("standingsTabel").innerHTML = templateStanding(dataStanding);
+                    document.getElementById("standingsTabel").innerHTML = viewStanding(dataStanding);
                     const save         = document.getElementById('save');
-                    
-                    async function saveContent() {
-                             const data = {
-                                 key: "standings",
-                                 standings: dataStanding.standings
-                             }
-                              saveStandingDB(data, 'Standings');
-                          }
-                     save.addEventListener('click', saveContent);
+                    save.addEventListener('click', async function () {
+                            const data= {
+                                 key        : "standings",
+                                 standings  : dataStanding.standings
+                            }
+                              saveInDB(data, 'Standings');
+                          });
                     }
+
+                    navigasiActive('STANDING');
                     standing();
                   break;
 
                   case "saved":
                       getAll().then(function (data) {
-                        const dataSaved = data.length === 0 ? templateError("Nothing saved yet!") : templateSaved(data);
+                        const dataSaved = data.length === 0 ? viewError("Nothing saved yet!") : viewSaved(data);
                         document.getElementById("listSaved").innerHTML = dataSaved;
-                           document.querySelectorAll("div .match").forEach(function (elm) {
-                               elm.addEventListener("click", function () {
+                        document.querySelectorAll("div .match").forEach(function (elm) {
+                            elm.addEventListener("click", function () {
                                    loadContent(elm.getAttribute("href"));
                                });
                            });
-                           document.querySelectorAll("div .delete").forEach(function (elm) {
-                               elm.addEventListener("click", function () {
+                        document.querySelectorAll("div .delete").forEach(function (elm) {
+                            elm.addEventListener("click", function () {
                                     const id    = elm.getAttribute("id");
                                     const title = elm.getAttribute("value");
                                     deleteDBId(id, title);
@@ -110,24 +110,26 @@ $.get(link, function (dataSearch) {
                                });
                            });
                         });
-                        break;
+
+                        navigasiActive('SAVED');
+                    break;
 
                   case 'savedId':
-                      if (url[1] !== "standings") {
-                          url[1] = "matchId-"+url[1];
-                      }
+                        if (url.id !== "standings") {
+                            url.id = "matchId-"+url.id;
+                        }
                       
-                        getById(url[1]).then(function (data) {
-                            data = templateSavedId(data)
-                            document.getElementById("tableSavedId").innerHTML = data[0];
-                            document.getElementById("listSavedId").innerHTML  = data[1];
+                        getById(url.id).then(function (data) {
+                            data = viewSavedId(data)
+                            document.getElementById("tableSavedId").innerHTML = data.standing;
+                            document.getElementById("listSavedId").innerHTML  = data.matchId;
                         });
-                      break;
+                        navigasiActive('SAVED');
+                    break;
           }
-       
     }).fail(
         function(){
-        $(".body-content").html(templateError("Page not found!"));
+        $(".body-content").html(viewError("Page not found!"));
         }
     );
       

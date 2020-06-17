@@ -1,3 +1,4 @@
+// Blok kode untuk membuat IndexDB
 var dbPromised = idb.open("manchester-united", 1, function (upgradeDb) {
     var articlesObjectStore = upgradeDb.createObjectStore("articles", {
         keyPath: "key"
@@ -7,7 +8,8 @@ var dbPromised = idb.open("manchester-united", 1, function (upgradeDb) {
     });
 });
 
-function saveStandingDB(data,title) {
+// Blok kode untuk menyimpan data pada Object Store articles
+function saveInDB(data,title) {
     dbPromised
         .then(function (db) {
             let tx = db.transaction("articles", "readwrite");
@@ -20,9 +22,15 @@ function saveStandingDB(data,title) {
                 html: title+' Saved',
                 classes: 'rounded toastcenter green',
             });
-        });
-}
-
+        }).catch(function () {
+             M.toast({
+                 html: title + ' Previusly Saved',
+                 classes: 'rounded toastcenter yellow darken-2',
+             });
+          });
+    }
+    
+// Blok kode untuk mengambil semua data yang ada di article
 function getAll() {
     return new Promise(function (resolve, reject) {
         dbPromised
@@ -36,6 +44,8 @@ function getAll() {
             });
     });
 }
+
+// Blok kode untuk mengambil data berdasarkan Id
 function getById(id) {
     return new Promise(function (resolve, reject) {
         dbPromised
@@ -50,6 +60,7 @@ function getById(id) {
     });
 }
 
+// Blok kode untuk menghapus data berdasarkan Id
 function deleteDBId(id, title) {
     return new Promise(function (resolve, reject) {
     dbPromised.then(function (db) {
@@ -59,7 +70,7 @@ function deleteDBId(id, title) {
         return tx.complete;
     }).then(function () {
         M.toast({
-            html:title+' Deleted',
+            html: title + ' Deleted',
             classes: 'rounded toastcenter red darken-3',
         });
     });

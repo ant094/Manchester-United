@@ -1,4 +1,4 @@
-/* style Logo 60px */
+/* style Laptop dan Komputer */
 .toast.rounded.toastcenter {
     left: -450px;
 }
@@ -19,7 +19,7 @@ p {
     margin-bottom: 0px;
 }
 
-a{
+a {
     color: black;
 }
 
@@ -76,21 +76,20 @@ a{
     font-size: 15px;
 }
 
-.text-justify{
+.text-justify {
     text-align: justify;
 }
-.text-right{
+.text-right {
     text-align: right;
 }
  .text-center {
      text-align: center;
  }
 
-body{
+body {
     overflow-x: hidden;
     background: #fafafa;
 }
-
 
 .img-sidebar{
     height: 200px;
@@ -110,11 +109,13 @@ body{
 .fs-date {
     font-size: 14px;
 }
-.line-matchId{
+.line-matchId {
     padding-top:10px;
     margin-top: 10px;
     border-top: 1px solid #ddd;
 }
+
+/* Style Tablet Landscape */
 @media (min-width: 1000px) and (max-width: 1200px) {
     
         .toast.rounded.toastcenter {
@@ -131,7 +132,7 @@ body{
         margin-bottom: 0;
         z-index: 997;
     }
-    .img-match{
+    .img-match {
         height: 80px;
     }
     .fs-date {
@@ -143,20 +144,23 @@ body{
    
 }
 
+/* Style Tablet */
 @media (min-width: 600px) and (max-width: 1000px) {
 
   .toast.rounded.toastcenter {
     left: 255px;
     margin-top: -885px;
   }
-.fixed-action-btn {
-    position: fixed;
-    right: 20px;
-    bottom: 33px;
-    padding-top: 15px;
-    margin-bottom: 0;
-    z-index: 997;
-}
+
+    .fixed-action-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 33px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 997;
+    }
+
     .content {
         padding: 10px 30px 10px 30px;
     }
@@ -185,6 +189,8 @@ body{
     }
 }
 
+
+/* Style Mobile */
 @media (max-width: 600px) {
     .toast.rounded.toastcenter {
         left: 0px;
@@ -240,5 +246,4 @@ body{
     .center-align.vs-matchId {
         padding-top: 20px;
     }
-
 }
